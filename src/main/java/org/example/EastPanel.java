@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.List;
 
 public class EastPanel extends JPanel {
-    private final Main main;
+    private final UserSelection window;
     private final SouthPanel southPanel;
     private final Repository repo = Repository.getInstance();
     private final DefaultListModel<String> participantModel = new DefaultListModel<>();
@@ -16,8 +16,8 @@ public class EastPanel extends JPanel {
     private JButton finishVotingButton;
     private final String myName;
 
-    public EastPanel(Main main, SouthPanel southPanel, String myName) {
-        this.main = main;
+    public EastPanel(UserSelection main, SouthPanel southPanel, String myName) {
+        this.window = main;
         this.southPanel = southPanel;
         this.myName = myName;
 
@@ -146,14 +146,14 @@ public class EastPanel extends JPanel {
     }
 
     private void openStoryPanel() {
-        StoriesNanny storiesNanny = new StoriesNanny(main, myName);
+        StoriesNanny storiesNanny = new StoriesNanny(window, myName);
         StoriesPanel storiesPanel = new StoriesPanel(storiesNanny);
-        main.setTitle("Add Story");
-        main.setContentPane(storiesPanel);
-        main.setSize(600, 400);
-        main.setLocationRelativeTo(null);
-        main.revalidate();
-        main.repaint();
+        window.setTitle("Add Story");
+        window.setContentPane(storiesPanel);
+        window.setSize(600, 400);
+        window.setLocationRelativeTo(null);
+        window.revalidate();
+        window.repaint();
     }
 
     private void resetSession() {

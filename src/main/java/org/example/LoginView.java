@@ -3,8 +3,8 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginPanel extends JPanel {
-    public LoginPanel(LoginNanny joinRoomNanny) {
+public class LoginView extends JPanel {
+    public LoginView(LoginController loginController) {
         setLayout(new BorderLayout(15, 15));
         setBackground(new Color(240, 245, 250));
         setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
@@ -41,7 +41,7 @@ public class LoginPanel extends JPanel {
         enterButton.addActionListener(e -> {
             String name = nameField.getText().trim();
             if (!name.isEmpty() && !name.equals("Enter your name")) {
-                joinRoomNanny.enterRoom(name);
+                loginController.enterRoom(name);
             } else {
                 JOptionPane.showMessageDialog(this, "Please enter your name to continue.",
                         "Input Required", JOptionPane.WARNING_MESSAGE);

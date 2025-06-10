@@ -1,26 +1,25 @@
 package org.example;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Main extends JFrame {
-
-    public Main() {
-        setTitle("Planning Poker - Login - Publisher");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 400);
-        setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
-
-        LoginNanny loginNanny = new LoginNanny(this);
-        LoginPanel loginPanel = new LoginPanel(loginNanny);
-        setContentPane(loginPanel);
-        setVisible(true);
-    }
-
     public static void main(String[] args) {
-        Thread publisherThread = new Thread(new Publisher());
-        publisherThread.start();
-        SwingUtilities.invokeLater(Main::new);
+        // show an option to allow user to choose who they are
+        Object[] options = { "Moderator", "Participant" };
+        int choice = JOptionPane.showOptionDialog(null, "Choose your role:", "Role Selection",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        // start threads based on selection
+        if (choice == 0) {
+            Thread moderatorThread = new Thread(new Publisher());
+            moderatorThread.start();
+            SwingUtilities.invokeLater(() -> new UserSelection(true));
+        } else if (choice == 1) {
+            Thread participantThread = new Thread(new Subscriber());
+            participantThread.start();
+            SwingUtilities.invokeLater(() -> new UserSelection(false));
+        } else {
+            System.exit(0); // quit if user closes window
+        }
     }
 }

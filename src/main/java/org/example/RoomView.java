@@ -3,9 +3,8 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
-public class CreateRoomPanel extends JPanel {
-
-    public CreateRoomPanel(CreateRoomNanny createRoomNanny) {
+public class RoomView extends JPanel {
+    public RoomView(RoomController roomController) {
         setLayout(new BorderLayout(15, 15));
         setBackground(new Color(240, 245, 250));
         setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
@@ -63,7 +62,7 @@ public class CreateRoomPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
 
         createButton.addActionListener(e ->
-                createRoomNanny.createRoom(nameField.getText(), (String) comboBox.getSelectedItem())
+                roomController.createRoom(nameField.getText(), (String) comboBox.getSelectedItem())
         );
     }
 

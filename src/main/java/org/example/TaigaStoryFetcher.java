@@ -12,14 +12,14 @@ import java.util.Map;
 
 public class TaigaStoryFetcher {
     private static final String TAIGA_API = "https://api.taiga.io/api/v1";
-    private static final String USERNAME = "your_username";
-    private static final String PASSWORD = "your_password";
+    private static final String USERNAME = "ili02@calpoly.edu";
+    private static final String PASSWORD = "Calejissmc4@";
 
     public static void main(String[] args) throws Exception {
         try {
             String authToken = loginAndGetToken(USERNAME, PASSWORD);
             // System.out.println("Authenticated successfully. Taiga Token: " + authToken);
-            int projectId = getProjectId(authToken, "2thesimplexity-pac-man");
+            int projectId = getProjectId(authToken, "zaxbie-lab2");
             //	getUserStories(authToken, projectId);
             System.out.println(projectId);
             // 1. Get all user stories

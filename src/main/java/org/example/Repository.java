@@ -2,6 +2,7 @@ package org.example;
 
 import java.beans.PropertyChangeSupport;
 import java.util.*;
+import org.json.JSONArray;
 
 public class Repository extends PropertyChangeSupport {
     public static Repository instance;
@@ -176,5 +177,23 @@ public class Repository extends PropertyChangeSupport {
         }
 
         return count == 0 ? 0 : sum / count;  // integer division gives int average
+    }
+
+    public void loadStoriesFromTaiga(String username, String password, String projectSlug) {
+        try{
+            // accessing the taiga
+            String token = TaigaStoryFetcher.loginAndGetToken(username, password);
+            int projectId = TaigaStoryFetcher.getProjectId(token, projectSlug);
+            JSONArray stories = TaigaStoryFetcher.fetchUserStories(token, projectId);
+
+            // adds stories from the backlog to the array
+            for (int i = 0; i < stories.length(); i++) {
+                String story = stories.getJSONObject(i).getString("subject");
+                this.addStory(story);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -1,12 +1,12 @@
 package org.example;
 
 public class StoriesNanny {
-    private final Main main;
+    private final UserSelection window;
     private final String myName;
     private final Repository repo = Repository.getInstance();
 
-    public StoriesNanny(Main main, String myName) {
-        this.main = main;
+    public StoriesNanny(UserSelection main, String myName) {
+        this.window = main;
         this.myName = myName;
     }
 
@@ -35,12 +35,12 @@ public class StoriesNanny {
     }
 
     private void switchGUI() {
-        main.setTitle("Planning Poker - Dashboard");
-        DashboardPanel dashboardPanel = new DashboardPanel(main, myName);
-        main.setContentPane(dashboardPanel);
-        main.setSize(1000, 700);
-        main.setLocationRelativeTo(null);
-        main.revalidate();
-        main.repaint();
+        window.setTitle("Planning Poker - Dashboard");
+        VotingView votingView = new VotingView(window, myName);
+        window.setContentPane(votingView);
+        window.setSize(1000, 700);
+        window.setLocationRelativeTo(null);
+        window.revalidate();
+        window.repaint();
     }
 }
