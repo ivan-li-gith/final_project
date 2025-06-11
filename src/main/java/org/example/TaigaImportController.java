@@ -16,8 +16,8 @@ public class TaigaImportController {
     }
 
     private void switchGUI() {
-        VotingView votingView = new VotingView(window, name);
-        window.setContentPane(votingView);
+        DashboardView dashboardView = new DashboardView(window, name);
+        window.setContentPane(dashboardView);
         window.setTitle("Planning Poker - Dashboard");
         window.setSize(1000, 700);
         window.setLocationRelativeTo(null);

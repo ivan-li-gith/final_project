@@ -59,7 +59,7 @@ public class TaigaImportView extends JPanel {
             String password = new String((passwordField).getPassword());
             String projectSlug = projectSlugField.getText().trim();
 
-            if (!username.isEmpty() && !password.isEmpty()) {
+            if (!username.isEmpty() && !password.isEmpty() && !projectSlug.isEmpty()) {
                 taigaImportController.handleTaigaLogin(username, password, projectSlug);
             } else {
                 JOptionPane.showMessageDialog(this, "Please enter username and password to continue.",

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class EastPanel extends JPanel {
     private final UserSelection window;
-    private final SouthPanel southPanel;
+    private final StoryView southPanel;
     private final Repository repo = Repository.getInstance();
     private final DefaultListModel<String> participantModel = new DefaultListModel<>();
     private Timer timer;
@@ -16,7 +16,7 @@ public class EastPanel extends JPanel {
     private JButton finishVotingButton;
     private final String myName;
 
-    public EastPanel(UserSelection main, SouthPanel southPanel, String myName) {
+    public EastPanel(UserSelection main, StoryView southPanel, String myName) {
         this.window = main;
         this.southPanel = southPanel;
         this.myName = myName;
@@ -112,7 +112,7 @@ public class EastPanel extends JPanel {
         if (repo.getFinishedVoting().size() == repo.getParticipants().size()) {
             new ResultsDialog(repo.getVoteCounts(), repo.calculateVoteSum()).setVisible(true);
             repo.completeCurrentStory();
-            southPanel.refreshStoryLists();
+//            southPanel.refreshStoryLists();
             finishVotingButton.setVisible(false);
             if (startButton != null) {
                 startButton.setVisible(true);

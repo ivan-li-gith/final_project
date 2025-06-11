@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class TaigaStoryFetcher {
     private static final String TAIGA_API = "https://api.taiga.io/api/v1";
-    private static final String USERNAME = "ili02@calpoly.edu";
-    private static final String PASSWORD = "Calejissmc4@";
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
 
     public static void main(String[] args) throws Exception {
         try {

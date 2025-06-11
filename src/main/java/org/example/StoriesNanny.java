@@ -36,8 +36,8 @@ public class StoriesNanny {
 
     private void switchGUI() {
         window.setTitle("Planning Poker - Dashboard");
-        VotingView votingView = new VotingView(window, myName);
-        window.setContentPane(votingView);
+        DashboardView dashboardView = new DashboardView(window, myName);
+        window.setContentPane(dashboardView);
         window.setSize(1000, 700);
         window.setLocationRelativeTo(null);
         window.revalidate();
