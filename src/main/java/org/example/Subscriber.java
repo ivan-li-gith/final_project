@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Subscriber implements Runnable, PropertyChangeListener, MqttCallback {
     private final static String BROKER = "tcp://broker.hivemq.com:1883";
-    private final static String TOPIC = "cal-poly/csc/309";
+    private final static String TOPIC = "cal-poly/csc/309/ivan";
     private final static String CLIENT_ID = "jgs-subscriber";
 
     private MqttClient client;

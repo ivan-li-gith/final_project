@@ -11,7 +11,7 @@ public class VotingView extends JPanel {
     private final JButton startButton;
     private final JButton finishVotingButton;
 
-    public VotingView(VotingController controller) {
+    public VotingView(VotingController controller, boolean isModerator) {
         this.controller = controller;
 
         Color panelBg = new Color(255, 240, 240); // A softer red
@@ -44,10 +44,17 @@ public class VotingView extends JPanel {
         buttonPanel.setBackground(panelBg);
 
 //        buttonPanel.add(createButton("Add Story", controller::handleAddStory));
-        buttonPanel.add(createButton("Reset Session", controller::handleResetSession));
+//        buttonPanel.add(createButton("Reset Session", controller::handleResetSession));
+
 
         startButton = createButton("Start Voting", controller::handleStartVoting);
-        buttonPanel.add(startButton);
+
+        if (isModerator) {
+            buttonPanel.add(startButton);
+        } else {
+            startButton.setEnabled(false);
+        }
+
 
         finishVotingButton = createButton("Finish Voting", controller::handleFinishVoting);
         finishVotingButton.setVisible(false);

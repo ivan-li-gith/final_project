@@ -11,13 +11,15 @@ public class VotingController implements PropertyChangeListener {
     private final UserSelection window;
     private final Repository repo = Repository.getInstance();
     private final String myName;
+    private final boolean isModerator;
     private Timer timer;
     private int seconds = 0;
 
-    public VotingController(UserSelection window, String myName) {
+    public VotingController(UserSelection window, String myName, boolean isModerator) {
         this.window = window;
         this.myName = myName;
-        this.view = new VotingView(this);
+        this.isModerator = isModerator;
+        this.view = new VotingView(this, isModerator);
         repo.addPropertyChangeListener(this);
         refreshParticipants(); // Initial load
     }
@@ -82,7 +84,7 @@ public class VotingController implements PropertyChangeListener {
     private void refreshParticipants() {
         List<String> participantNames = new ArrayList<>();
         for (Participant p : repo.getParticipants()) {
-            participantNames.add(p.getName() + (p.hasVoted() ? " (✓)" : ""));
+            participantNames.add(p.getName());
         }
         view.updateParticipantList(participantNames);
     }
@@ -119,6 +121,13 @@ public class VotingController implements PropertyChangeListener {
             case "finishedVoting":
                 refreshParticipants(); // Update the checkmarks
                 checkAndShowResults();
+                break;
+            case "votingStarted":
+                if (repo.isVotingStarted()) {
+                    view.setStartButtonVisible(false);
+                    view.setFinishVotingButtonVisible(true);
+                    startTimer();
+                }
                 break;
         }
     }

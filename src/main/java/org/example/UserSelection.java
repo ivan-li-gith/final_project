@@ -7,7 +7,7 @@ public class UserSelection extends JFrame {
     private final Repository repo = Repository.getInstance();
 
     public UserSelection(boolean isModerator) {
-        // draw the frane
+        // draw the frame
         setTitle("Planning Poker");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 400);
@@ -16,16 +16,17 @@ public class UserSelection extends JFrame {
 
         if (isModerator) {
             setTitle("Planning Poker - Moderator Login");
-            LoginController loginController = new LoginController(this);
+            LoginController loginController = new LoginController(this, isModerator);
             LoginView loginView = new LoginView(loginController);
             setContentPane(loginView);
         } else {
             setTitle("Planning Poker - Participant");
             showWaitingScreen();
+
             repo.addPropertyChangeListener("room", evt -> {
                 SwingUtilities.invokeLater(() -> {
                     setTitle("Planning Poker - Participant Login");
-                    LoginController loginController = new LoginController(this);
+                    LoginController loginController = new LoginController(this, isModerator);
                     LoginView loginView = new LoginView(loginController);
                     setContentPane(loginView);
                     revalidate();

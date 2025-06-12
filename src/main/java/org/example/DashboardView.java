@@ -6,7 +6,7 @@ import java.awt.*;
 public class DashboardView extends JPanel {
     private final Repository repo = Repository.getInstance();
 
-    public DashboardView(UserSelection window, String myName) {
+    public DashboardView(UserSelection window, String myName, boolean isModerator) {
         setLayout(new BorderLayout(10, 10));
 
         // room title
@@ -17,13 +17,13 @@ public class DashboardView extends JPanel {
         // cards, story, and participants views
 //        CardsPanel cardsPanel = new CardsPanel(eastPanel, myName);
 
-        StoryController storyController = new StoryController();
+        StoryController storyController = new StoryController(isModerator);
         add(storyController.getStoryView(), BorderLayout.SOUTH);
 
 //        EastPanel eastPanel = new EastPanel(window, storyController.getStoryView(), myName);
 //        add(eastPanel, BorderLayout.EAST);
 
-        VotingController votingController = new VotingController(window, myName);
+        VotingController votingController = new VotingController(window, myName, isModerator);
         add(votingController.getView(), BorderLayout.EAST);
 
 

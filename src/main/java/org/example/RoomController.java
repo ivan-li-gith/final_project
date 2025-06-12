@@ -4,10 +4,12 @@ public class RoomController {
     private final UserSelection window;
     private String name;
     private final Repository repo = Repository.getInstance();
+    private final boolean isModerator;
 
-    public RoomController(UserSelection window, String name) {
+    public RoomController(UserSelection window, String name, boolean isModerator) {
         this.window = window;
         this.name = name;
+        this.isModerator = isModerator;
     }
 
     // adds room name/mode to repo and switches it to the dashboard
@@ -18,7 +20,7 @@ public class RoomController {
     }
 
     private void switchGUI() {
-        TaigaImportController taigaImportController = new TaigaImportController(window, name);
+        TaigaImportController taigaImportController = new TaigaImportController(window, name, isModerator);
         TaigaImportView taigaImportView = new TaigaImportView(taigaImportController);
         window.setContentPane(taigaImportView);
         window.setTitle("Planning Poker - Dashboard");
