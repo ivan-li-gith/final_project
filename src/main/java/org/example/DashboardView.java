@@ -20,9 +20,14 @@ public class DashboardView extends JPanel {
         StoryController storyController = new StoryController();
         add(storyController.getStoryView(), BorderLayout.SOUTH);
 
-        EastPanel eastPanel = new EastPanel(window, storyController.getStoryView(), myName);
+//        EastPanel eastPanel = new EastPanel(window, storyController.getStoryView(), myName);
+//        add(eastPanel, BorderLayout.EAST);
 
-        CardsController cardsController = new CardsController(eastPanel, myName);
+        VotingController votingController = new VotingController(window, myName);
+        add(votingController.getView(), BorderLayout.EAST);
+
+
+        CardsController cardsController = new CardsController(votingController, myName);
         add(cardsController.getView(), BorderLayout.CENTER);
 
 

@@ -9,12 +9,12 @@ import java.util.Map;
 
 public class CardsController implements PropertyChangeListener {
     private final CardsView cardView;
-    private final EastPanel eastPanel;
+    private final VotingController votingController;
     private final String name;
     private final Repository repo = Repository.getInstance();
 
-    public CardsController(EastPanel eastPanel, String name) {
-        this.eastPanel = eastPanel;
+    public CardsController(VotingController votingController, String name) {
+        this.votingController = votingController;
         this.name = name;
         this.cardView = new CardsView(this);
         repo.addPropertyChangeListener(this);
@@ -35,7 +35,7 @@ public class CardsController implements PropertyChangeListener {
         }
         repo.updateVote(name, voteValue);
         updateCardColors();
-        eastPanel.showFinishVotingButton();
+        votingController.showFinishVotingButton();
     }
 
     private void updateCardColors() {
