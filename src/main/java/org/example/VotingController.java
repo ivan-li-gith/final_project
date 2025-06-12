@@ -28,28 +28,6 @@ public class VotingController implements PropertyChangeListener {
         return view;
     }
 
-    // --- Button Handlers ---
-
-//    public void handleAddStory() {
-//        // This logic was previously in openStoryPanel()
-//        StoriesNanny storiesNanny = new StoriesNanny(window, myName);
-//        StoriesPanel storiesPanel = new StoriesPanel(storiesNanny);
-//        window.setTitle("Add Story");
-//        window.setContentPane(storiesPanel);
-//        window.setSize(600, 400);
-//        window.setLocationRelativeTo(null);
-//        window.revalidate();
-//        window.repaint();
-//    }
-
-    public void handleResetSession() {
-        repo.getParticipants().clear();
-        stopTimer();
-        refreshParticipants();
-        view.setFinishVotingButtonVisible(false);
-        view.setStartButtonVisible(true);
-    }
-
     public void handleStartVoting() {
         if (repo.getSelectedStory() == null) {
             JOptionPane.showMessageDialog(view, "Select a story first!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -64,20 +42,25 @@ public class VotingController implements PropertyChangeListener {
     }
 
     public void handleFinishVoting() {
-        view.setFinishVotingButtonVisible(false); // Disable immediately to prevent double clicks
+        view.setFinishVotingButtonVisible(false);
         repo.markFinishedVoting(myName);
         checkAndShowResults();
     }
 
-    // --- Logic Methods ---
-
     private void checkAndShowResults() {
-        if (repo.getFinishedVoting().size() >= repo.getParticipants().size() && repo.getParticipants().size() > 0) {
-            new ResultsDialog(repo.getVoteCounts(), repo.calculateVoteSum()).setVisible(true);
+        if (repo.getFinishedVoting().size() == repo.getParticipants().size()) {
+            new ResultsDialog(repo.getVotesWithNames(), repo.calculateVoteSum()).setVisible(true);
+            repo.accumulateScoreForStory();
             repo.completeCurrentStory();
             view.setFinishVotingButtonVisible(false);
             view.setStartButtonVisible(true);
             stopTimer();
+
+            // Check AFTER the story has been removed
+            if (repo.getStories().isEmpty()) {
+                new ResultsDialog(repo.getPlayerScores(), 0).setTitle("Final Score Summary");
+                new ResultsDialog(repo.getPlayerScores(), 0).setVisible(true);
+            }
         }
     }
 

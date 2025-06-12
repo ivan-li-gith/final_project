@@ -3,6 +3,10 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 
 public class ResultsDialog extends JDialog {
     public ResultsDialog(Map<String, Integer> counts, double total) {
@@ -28,6 +32,18 @@ public class ResultsDialog extends JDialog {
 
         resultsArea.setText(sb.toString());
         content.add(new JScrollPane(resultsArea), BorderLayout.CENTER);
+
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        counts.forEach((label, score) -> {
+            dataset.setValue(label, score);
+        });
+
+        JFreeChart pieChart = ChartFactory.createPieChart(
+                "Voting Distribution", dataset, true, true, false
+        );
+
+        ChartPanel chartPanel = new ChartPanel(pieChart);
+        content.add(chartPanel, BorderLayout.CENTER);
 
         JButton closeButton = new JButton("Close");
         closeButton.addActionListener(e -> dispose());

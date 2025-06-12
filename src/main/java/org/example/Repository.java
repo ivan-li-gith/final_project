@@ -14,6 +14,7 @@ public class Repository extends PropertyChangeSupport {
     private String selectedStory = null;
     private boolean votingStarted = false;
     private final List<String> collectedVotes = new ArrayList<>();
+    private final Map<String, Integer> playerScores = new HashMap<>();
 
 
     public Repository() {
@@ -196,5 +197,37 @@ public class Repository extends PropertyChangeSupport {
         }
     }
 
+    public void accumulateScoreForStory() {
+        for (Participant p : participants) {
+            if (p.hasVoted()) {
+                String vote = p.getVote();
+                int score = parseVoteValue(vote);
+                playerScores.put(p.getName(), playerScores.getOrDefault(p.getName(), 0) + score);
+            }
+        }
+    }
 
+    private int parseVoteValue(String vote) {
+        try {
+            if (vote.equals("½")) return 1;
+            if (vote.equals("?")) return new Random().nextInt(10) + 1;
+            return (int) Double.parseDouble(vote);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public Map<String, Integer> getPlayerScores() {
+        return playerScores;
+    }
+    public Map<String, Integer> getVotesWithNames() {
+        Map<String, Integer> result = new HashMap<>();
+        for (Participant p : participants) {
+            if (p.hasVoted()) {
+                int score = parseVoteValue(p.getVote());
+                result.put(p.getName() + ": " + p.getVote(), score);
+            }
+        }
+        return result;
+    }
 }

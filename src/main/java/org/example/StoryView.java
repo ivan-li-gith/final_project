@@ -17,7 +17,6 @@ public class StoryView extends JPanel{
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(0, 150));
 
-//        JList<String> activeStoryList = new JList<>(activeStoryModel);
         JList<String> completedStoryList = new JList<>(completedStoryModel);
 
         JTabbedPane tabs = new JTabbedPane();
@@ -38,16 +37,6 @@ public class StoryView extends JPanel{
                 }
             });
         }
-
-//        activeStoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        activeStoryList.addListSelectionListener(e -> {
-//            if (!e.getValueIsAdjusting()) {
-//                String selectedStory = activeStoryList.getSelectedValue();
-//                if (selectedStory != null) {
-//                    controller.handleStorySelection(selectedStory);
-//                }
-//            }
-//        });
     }
 
     public void updateStoryLists(List<String> activeStories, List<String> completedStories) {

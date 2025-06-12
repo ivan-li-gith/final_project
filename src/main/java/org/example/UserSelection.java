@@ -21,19 +21,31 @@ public class UserSelection extends JFrame {
             setContentPane(loginView);
         } else {
             setTitle("Planning Poker - Participant");
-            showWaitingScreen();
 
-            repo.addPropertyChangeListener("room", evt -> {
+            if (repo.getRoomName() != null && !repo.getRoomName().isEmpty()) {
+                // Room already exists, skip waiting
                 SwingUtilities.invokeLater(() -> {
                     setTitle("Planning Poker - Participant Login");
-                    LoginController loginController = new LoginController(this, isModerator);
+                    LoginController loginController = new LoginController(this,isModerator);
                     LoginView loginView = new LoginView(loginController);
                     setContentPane(loginView);
                     revalidate();
                     repaint();
                 });
-            });
-        }
+            } else {
+                // Show waiting UI and wait for room
+                showWaitingScreen();
+                repo.addPropertyChangeListener("room", evt -> {
+                    SwingUtilities.invokeLater(() -> {
+                        setTitle("Planning Poker - Participant Login");
+                        LoginController loginController = new LoginController(this,isModerator);
+                        LoginView loginView = new LoginView(loginController);
+                        setContentPane(loginView);
+                        revalidate();
+                        repaint();
+                    });
+                });
+            }}
         setVisible(true);
     }
 

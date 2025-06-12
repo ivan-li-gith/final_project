@@ -15,7 +15,6 @@ public class CardsView extends JPanel {
 
     public CardsView(CardsController controller) {
         this.controller = controller;
-        // This was the missing call!
         initializeUI();
     }
 
@@ -62,29 +61,23 @@ public class CardsView extends JPanel {
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Tell the controller the value of the card that was clicked.
-                controller.handleVote(text);
+                controller.handleVote(text); // tells controller the value of the card clicked
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                // The view handles its own hover effect.
-                button.setBorder(hoverBorder);
+                button.setBorder(hoverBorder); // hover effect
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                // The view resets its own hover effect.
-                button.setBorder(defaultBorder);
+                button.setBorder(defaultBorder); // no hover effect
             }
         });
         return button;
     }
 
-    /**
-     * This method is called by the controller to update the background color of all cards.
-     * @param colorMap A map where the key is the card value and the value is the new Color.
-     */
+    // update background color and all cards
     public void updateCardColors(Map<String, Color> colorMap) {
         cardButtons.forEach((value, button) -> {
             button.setBackground(colorMap.getOrDefault(value, Color.WHITE));

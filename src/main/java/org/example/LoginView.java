@@ -9,17 +9,17 @@ public class LoginView extends JPanel {
         setBackground(new Color(240, 245, 250));
         setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
 
-        // Title label
+        // title label
         JLabel titleLabel = new JLabel("Let's Start!", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
         titleLabel.setForeground(new Color(33, 74, 125));
 
-        // Subtitle label
+        // subtitle label
         JLabel subtitleLabel = new JLabel("Join the Room:", SwingConstants.CENTER);
         subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         subtitleLabel.setForeground(new Color(90, 90, 90));
 
-        // Name text field with rounded border
+        // name text field with rounded border
         JTextField nameField = new JTextField("Enter your name");
         nameField.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         nameField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -30,14 +30,14 @@ public class LoginView extends JPanel {
         nameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 
 
-        // Enter button
+        // enter button
         JButton enterButton = new JButton("Enter");
         enterButton.setFont(new Font("Segoe UI", Font.BOLD, 16));
         enterButton.setBackground(new Color(173, 216, 230));
         enterButton.setFocusPainted(false);
         enterButton.setBorder(BorderFactory.createEmptyBorder(10, 25, 10, 25));
 
-        // Button action
+        // button action
         enterButton.addActionListener(e -> {
             String name = nameField.getText().trim();
             if (!name.isEmpty() && !name.equals("Enter your name")) {
@@ -48,7 +48,7 @@ public class LoginView extends JPanel {
             }
         });
 
-        // Center panel for form content
+        // center panel for form content
         JPanel formPanel = new JPanel();
         formPanel.setBackground(new Color(240, 245, 250));
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));

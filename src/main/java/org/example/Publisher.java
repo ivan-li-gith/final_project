@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Publisher implements Runnable, PropertyChangeListener, MqttCallback {
     private final static String BROKER = "tcp://broker.hivemq.com:1883";
-    private final static String TOPIC = "cal-poly/csc/309/ivan";
+    private final static String TOPIC = "cal-poly/csc/309/new";
     private final static String CLIENT_ID = "jgs-publisher";
 
     private MqttClient client;
@@ -22,6 +22,7 @@ public class Publisher implements Runnable, PropertyChangeListener, MqttCallback
             client.setCallback(this);
             client.connect();
             client.subscribe(TOPIC);
+            sendRoom();
             repo.addPropertyChangeListener(this);
             System.out.println("Connected to BROKER: " + BROKER);
             System.out.println("Subscribed to TOPIC: " + TOPIC);
@@ -102,6 +103,7 @@ public class Publisher implements Runnable, PropertyChangeListener, MqttCallback
         if (client != null && client.isConnected()) {
             try {
                 MqttMessage message = new MqttMessage(content.getBytes());
+                message.setRetained(content.startsWith("room:"));
                 client.publish(TOPIC, message);
                 System.out.println("Published: " + content);
             } catch (MqttException e) {

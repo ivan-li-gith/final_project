@@ -24,6 +24,7 @@ public class CardsController implements PropertyChangeListener {
         return cardView;
     }
 
+    // tells users to select a story and press start button and shows finish button when a card is selected
     public void handleVote(String voteValue) {
         if (repo.getSelectedStory() == null) {
             JOptionPane.showMessageDialog(cardView, "Please select a story before voting!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -40,19 +41,18 @@ public class CardsController implements PropertyChangeListener {
 
     private void updateCardColors() {
         Map<String, Color> colorMap = new HashMap<>();
-        // Make sure all cards have a color in the map, even if it's white
         for (String cardValue : cardView.getCardValues()) {
             colorMap.put(cardValue, getCardColor(cardValue));
         }
         cardView.updateCardColors(colorMap);
     }
 
+    // clicked = blue else it is white
     private Color getCardColor(String value) {
         long voteCount = repo.getAllVotes().stream()
                 .filter(v -> v.equals(value))
                 .count();
         if (voteCount > 0) {
-            // Calculate a semi-transparent blue
             return new Color(173, 216, 230, (int) (200 * Math.min(voteCount / 3.0, 1)));
         }
         return Color.WHITE;
@@ -60,7 +60,6 @@ public class CardsController implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // If votes change for any reason (e.g., a new story is selected), update the colors
         if ("selectedStory".equals(evt.getPropertyName()) || "participants".equals(evt.getPropertyName())) {
             updateCardColors();
         }

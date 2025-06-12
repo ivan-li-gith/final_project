@@ -14,7 +14,7 @@ public class VotingView extends JPanel {
     public VotingView(VotingController controller, boolean isModerator) {
         this.controller = controller;
 
-        Color panelBg = new Color(255, 240, 240); // A softer red
+        Color panelBg = new Color(255, 240, 240);
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 600));
         setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -42,11 +42,6 @@ public class VotingView extends JPanel {
         // Buttons
         JPanel buttonPanel = new JPanel(new GridLayout(0, 1, 0, 10));
         buttonPanel.setBackground(panelBg);
-
-//        buttonPanel.add(createButton("Add Story", controller::handleAddStory));
-//        buttonPanel.add(createButton("Reset Session", controller::handleResetSession));
-
-
         startButton = createButton("Start Voting", controller::handleStartVoting);
 
         if (isModerator) {
@@ -55,11 +50,9 @@ public class VotingView extends JPanel {
             startButton.setEnabled(false);
         }
 
-
         finishVotingButton = createButton("Finish Voting", controller::handleFinishVoting);
         finishVotingButton.setVisible(false);
         buttonPanel.add(finishVotingButton);
-
         content.add(buttonPanel);
         add(content, BorderLayout.NORTH);
     }

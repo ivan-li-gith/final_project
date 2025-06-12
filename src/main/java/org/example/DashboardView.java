@@ -13,30 +13,18 @@ public class DashboardView extends JPanel {
         JLabel roomTitle = new JLabel("Room: " + repo.getRoomName());
         roomTitle.setFont(new Font("Arial", Font.BOLD, 18));
         roomTitle.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        add(roomTitle, BorderLayout.NORTH);
 
-        // cards, story, and participants views
-//        CardsPanel cardsPanel = new CardsPanel(eastPanel, myName);
-
+        // active and completed stories
         StoryController storyController = new StoryController(isModerator);
         add(storyController.getStoryView(), BorderLayout.SOUTH);
 
-//        EastPanel eastPanel = new EastPanel(window, storyController.getStoryView(), myName);
-//        add(eastPanel, BorderLayout.EAST);
-
+        // start/ finish voting button and participant list
         VotingController votingController = new VotingController(window, myName, isModerator);
         add(votingController.getView(), BorderLayout.EAST);
 
-
+        // cards
         CardsController cardsController = new CardsController(votingController, myName);
         add(cardsController.getView(), BorderLayout.CENTER);
-
-
-
-
-
-        add(roomTitle, BorderLayout.NORTH);
-//        add(cardsPanel, BorderLayout.CENTER);
-//        add(eastPanel, BorderLayout.EAST);
-//        eastPanel.refreshParticipants();
     }
 }

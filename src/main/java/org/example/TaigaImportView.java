@@ -17,7 +17,7 @@ public class TaigaImportView extends JPanel {
         titleLabel.setForeground(new Color(33, 74, 125));
 
         // username input
-        JTextField usernameField = new JTextField("Enter your username");
+        JTextField usernameField = new JTextField("ili02@calpoly.edu");
         usernameField.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         usernameField.setHorizontalAlignment(SwingConstants.CENTER);
         usernameField.setBorder(BorderFactory.createCompoundBorder(
@@ -27,7 +27,7 @@ public class TaigaImportView extends JPanel {
         usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 
         // password input
-        JPasswordField passwordField = new JPasswordField("Enter your password");
+        JPasswordField passwordField = new JPasswordField("Calejissmc4@");
         passwordField.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         passwordField.setHorizontalAlignment(SwingConstants.CENTER);
         passwordField.setBorder(BorderFactory.createCompoundBorder(
@@ -37,7 +37,7 @@ public class TaigaImportView extends JPanel {
         passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 
         // project slug input
-        JTextField projectSlugField = new JTextField("Enter your project slug");
+        JTextField projectSlugField = new JTextField("zaxbie-lab2");
         projectSlugField.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         projectSlugField.setHorizontalAlignment(SwingConstants.CENTER);
         projectSlugField.setBorder(BorderFactory.createCompoundBorder(
