@@ -29,14 +29,11 @@ public class Repository extends PropertyChangeSupport {
     }
 
     public void addParticipant(String name) {
-        // Check if the participant already exists
         for (Participant p : participants) {
             if (p.getName().equalsIgnoreCase(name)) {
-                return; // Don't add duplicates
+                return;
             }
         }
-
-        // If not found, add the participant and notify listeners
         participants.add(new Participant(name));
         firePropertyChange("participants", null, participants);
     }
@@ -46,7 +43,7 @@ public class Repository extends PropertyChangeSupport {
     }
 
     public void addRoomName(String name) {
-        if (!name.equals(this.roomName)) {  // prevent re-firing
+        if (!name.equals(this.roomName)) {
             this.roomName = name;
             firePropertyChange("room", null, roomName);
         }
@@ -84,7 +81,7 @@ public class Repository extends PropertyChangeSupport {
             p.setVote(null);  // clear votes
         }
 
-        finishedVoting.clear();        // ← ADD THIS LINE
+        finishedVoting.clear();
         firePropertyChange("selectedStory", old, story);
     }
 
@@ -119,7 +116,6 @@ public class Repository extends PropertyChangeSupport {
         firePropertyChange("votingStarted", old, started);
     }
 
-
     public void completeCurrentStory() {
         if (selectedStory != null) {
             storiesList.remove(selectedStory);
@@ -147,15 +143,7 @@ public class Repository extends PropertyChangeSupport {
         }
     }
 
-    public Map<String, Integer> getVoteCounts() {
-        Map<String, Integer> countMap = new HashMap<>();
-        for (String vote : getAllVotes()) {
-            countMap.put(vote, countMap.getOrDefault(vote, 0) + 1);
-        }
-        return countMap;
-    }
-
-
+    // calculate for display after every vote
     public int calculateVoteSum() {
         int sum = 0;
         int count = 0;
@@ -164,22 +152,23 @@ public class Repository extends PropertyChangeSupport {
         for (String vote : getAllVotes()) {
             try {
                 if (vote.equals("½")) {
-                    sum += 1;  // treat ½ as 1, or change this if you want to round down to 0
+                    sum += 1;  // treat as 1
                     count++;
                 } else if (vote.equals("?")) {
-                    int randomValue = rand.nextInt(10) + 1;  // Random integer between 1 and 10
+                    int randomValue = rand.nextInt(10) + 1;  // random integer between 1 and 10
                     sum += randomValue;
                     count++;
                 } else {
-                    sum += (int) Double.parseDouble(vote);  // Converts "2.0" to 2
+                    sum += (int) Double.parseDouble(vote);
                     count++;
                 }
             } catch (NumberFormatException ignored) {}
         }
 
-        return count == 0 ? 0 : sum / count;  // integer division gives int average
+        return count == 0 ? 0 : sum / count;
     }
 
+    // load stories from taiga
     public void loadStoriesFromTaiga(String username, String password, String projectSlug) {
         try{
             // accessing the taiga
@@ -197,6 +186,7 @@ public class Repository extends PropertyChangeSupport {
         }
     }
 
+    // add all scores for viewing how people vote
     public void accumulateScoreForStory() {
         for (Participant p : participants) {
             if (p.hasVoted()) {
@@ -220,6 +210,7 @@ public class Repository extends PropertyChangeSupport {
     public Map<String, Integer> getPlayerScores() {
         return playerScores;
     }
+
     public Map<String, Integer> getVotesWithNames() {
         Map<String, Integer> result = new HashMap<>();
         for (Participant p : participants) {

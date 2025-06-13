@@ -23,7 +23,7 @@ public class UserSelection extends JFrame {
             setTitle("Planning Poker - Participant");
 
             if (repo.getRoomName() != null && !repo.getRoomName().isEmpty()) {
-                // Room already exists, skip waiting
+                // room already exists skip waiting
                 SwingUtilities.invokeLater(() -> {
                     setTitle("Planning Poker - Participant Login");
                     LoginController loginController = new LoginController(this,isModerator);
@@ -33,7 +33,7 @@ public class UserSelection extends JFrame {
                     repaint();
                 });
             } else {
-                // Show waiting UI and wait for room
+                // show waiting UI and wait for room
                 showWaitingScreen();
                 repo.addPropertyChangeListener("room", evt -> {
                     SwingUtilities.invokeLater(() -> {

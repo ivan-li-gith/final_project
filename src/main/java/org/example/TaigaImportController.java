@@ -12,6 +12,7 @@ public class TaigaImportController {
         this.isModerator = isModerator;
     }
 
+    // loads the taiga stories from login info
     public void handleTaigaLogin(String username, String password, String projectSlug) {
         repo.loadStoriesFromTaiga(username, password, projectSlug);
         switchGUI();

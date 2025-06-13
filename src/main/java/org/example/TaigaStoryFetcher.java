@@ -8,27 +8,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
 
 public class TaigaStoryFetcher {
-    private static final String TAIGA_API = "https://api.taiga.io/api/v1";
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
-
-    public static void main(String[] args) throws Exception {
-        try {
-            String authToken = loginAndGetToken(USERNAME, PASSWORD);
-            // System.out.println("Authenticated successfully. Taiga Token: " + authToken);
-            int projectId = getProjectId(authToken, "zaxbie-lab2");
-            //	getUserStories(authToken, projectId);
-            System.out.println(projectId);
-            // 1. Get all user stories
-            JSONArray stories = fetchUserStories(authToken, projectId);
-//            updateBacklogTotalPoints(authToken, stories, 5.0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static String loginAndGetToken(String username, String password) throws Exception {
         URL url = new URL("https://api.taiga.io/api/v1/auth");
@@ -57,7 +38,6 @@ public class TaigaStoryFetcher {
             throw new RuntimeException("Login failed: " + errorMessage);
         }
         String authToken = json.getString("auth_token");
-        // System.out.println("Auth token: " + authToken);
         return authToken;
     }
 
@@ -89,54 +69,13 @@ public class TaigaStoryFetcher {
         reader.close();
         JSONArray allStories = new JSONArray(response.toString());
         JSONArray backlogStories = new JSONArray();
-        Map<String, String> roleIdToName = Map.of(
-                "5100817", "UX",
-                "5100818", "Design",
-                "5100816", "Front",
-                "5100815", "Back"
-        );
-        Map<Integer, Integer> pointIdToValue = Map.of(
-                10136072, 8,  // UX
-                10136073, 1,  // Design
-                10136071, 2,  // Front
-                10136075, 3   // Back
-        );
-        System.out.println("Backlog stories:");
+
         for (int i = 0; i < allStories.length(); i++) {
             JSONObject story = allStories.getJSONObject(i);
             if (story.isNull("milestone")) {
                 backlogStories.put(story);
-                int id = story.getInt("id");
-                String subject = story.optString("subject", "(no title)");
-                String responsible = "Unassigned";
-                if (!story.isNull("assigned_to_extra_info")) {
-                    responsible = story.getJSONObject("assigned_to_extra_info")
-                            .optString("full_name_display", "Unassigned");
-                }
-                String totalPoints = story.isNull("total_points")
-                        ? "—"
-                        : String.valueOf(story.getDouble("total_points"));
-                System.out.printf("• #%d - %s\n   Responsible: %s\n   Total Points: %s\n",
-                        id, subject, responsible, totalPoints);
-                if (!story.isNull("points")) {
-                    JSONObject pointsObj = story.getJSONObject("points");
-                    int sum = 0;
-                    for (String roleId : pointsObj.keySet()) {
-                        int pointId = pointsObj.getInt(roleId);
-                        int value = pointIdToValue.getOrDefault(pointId, -1);
-                        String role = roleIdToName.getOrDefault(roleId, "Unknown");
-
-                        System.out.printf("     - %s (roleId: %s) → pointId: %d → value: %s\n",
-                                role, roleId, pointId, (value >= 0 ? value : "?"));
-                        if (value >= 0) sum += value;
-                    }
-                    System.out.println("     = Computed Sum: " + sum + "\n");
-                } else {
-                    System.out.println("     No per-role points assigned.\n");
-                }
             }
         }
         return backlogStories;
     }
-
 }

@@ -27,6 +27,7 @@ public class StoryView extends JPanel{
         activeStoryList.setEnabled(isModerator);
         activeStoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        // only moderator can select stories to vote
         if (isModerator) {
             activeStoryList.addListSelectionListener(e -> {
                 if (!e.getValueIsAdjusting()) {
@@ -39,6 +40,7 @@ public class StoryView extends JPanel{
         }
     }
 
+    // update the active and completed after every vote
     public void updateStoryLists(List<String> activeStories, List<String> completedStories) {
         activeStoryModel.clear();
         for (String story : activeStories) {

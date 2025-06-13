@@ -13,6 +13,7 @@ public class Subscriber implements Runnable, PropertyChangeListener, MqttCallbac
     private static final Logger logger = LoggerFactory.getLogger(Subscriber.class);
     private final static String BROKER = "tcp://broker.hivemq.com:1883";
     private final static String TOPIC = "cal-poly/csc/309/new2";
+    // adding the UUID because for some reason it causes the messages to infinitely send
     private final static String CLIENT_ID = "jgs-subscriber-" + java.util.UUID.randomUUID().toString();
 
     private MqttClient client;
@@ -26,10 +27,9 @@ public class Subscriber implements Runnable, PropertyChangeListener, MqttCallbac
             client.connect();
             client.subscribe(TOPIC);
             repo.addPropertyChangeListener(this);
-            System.out.println("Connected to BROKER: " + BROKER);
-            System.out.println("Subscribed to TOPIC: " + TOPIC);
+            logger.info("Connected to BROKER and Subscribed to TOPIC");
         } catch (MqttException e) {
-            e.printStackTrace();
+            logger.error("Publisher failed to connect or subscribe.");
         }
     }
 
@@ -74,9 +74,9 @@ public class Subscriber implements Runnable, PropertyChangeListener, MqttCallbac
             try {
                 MqttMessage message = new MqttMessage(content.getBytes());
                 client.publish(TOPIC, message);
-                System.out.println("Published: " + content);
+                logger.info("Subscriber published message");
             } catch (MqttException e) {
-                e.printStackTrace();
+                logger.error("Subscriber failed to publish message");
             }
         }
     }
@@ -92,58 +92,43 @@ public class Subscriber implements Runnable, PropertyChangeListener, MqttCallbac
                     repo.addParticipant(name);
                 }
             }
-
             logger.info("Subscriber received full participant list");
-        }
-
-        if (content.startsWith("room:")) {
+        } else if (content.startsWith("room:")) {
             String message = content.substring(5);
             repo.addRoomName(message);
-            System.out.println("Got message and updated repo: " + repo.getRoomName());
-        }
-
-        if (content.startsWith("stories:")) {
+            logger.info("Subscriber received room name");
+        } else if (content.startsWith("stories:")) {
             String[] parts = content.substring(8).split(",");
             for (String part : parts) {
                 repo.addStory(part);
             }
-            System.out.println("Got message and updated repo: " + String.join(",", repo.getStories()));
-        }
-
-        if (content.startsWith("selectedStory:")) {
+            logger.info("Subscriber received full stories list");
+        } else if (content.startsWith("selectedStory:")) {
             String selected = content.substring("selectedStory:".length()).trim();
             if (!selected.isEmpty()) {
                 repo.setSelectedStory(selected);
-                System.out.println("Received selected story and updated repo: " + selected);
+                logger.info("Subscriber received the selected story");
             }
-        }
-
-        if (content.startsWith("votingStarted:")) {
+        } else if (content.startsWith("votingStarted:")) {
             String flag = content.substring("votingStarted:".length()).trim();
             if (flag.equals("true")) {
                 repo.setVotingStarted(true);
-                System.out.println("Sub knows voting has started.");
+                logger.info("Subscriber knows voting is started");
             }
-        }
-
-        if (content.startsWith("finishedVoting:")) {
+        } else if (content.startsWith("finishedVoting:")) {
             String name = content.substring("finishedVoting:".length());
             repo.markFinishedVoting(name);
-            System.out.println(name + "has finished voting");
-        }
-
-        if (content.startsWith("cardNumber:")) {
+            logger.info("Subscriber finished voting");
+        } else if (content.startsWith("cardNumber:")) {
             String[] parts = content.substring("cardNumber:".length()).trim().split(":");
             if (parts.length == 2) {
                 String name = parts[0];
                 String vote = parts[1];
-
                 repo.updateVote(name, vote);
                 repo.addCollectedVote(vote);
-                System.out.println("Received vote from " + name + ": " + vote);
+                logger.info("Subscriber received vote from publisher");
             }
         }
-
     }
 
     @Override

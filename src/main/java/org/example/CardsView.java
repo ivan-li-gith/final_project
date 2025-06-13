@@ -22,6 +22,7 @@ public class CardsView extends JPanel {
         return CARD_VALUES;
     }
 
+    // draws out the cards and places it in the center
     private void initializeUI() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -29,6 +30,7 @@ public class CardsView extends JPanel {
         add(createCardGrid(), BorderLayout.CENTER);
     }
 
+    // draws the card grid
     private JPanel createCardGrid() {
         JPanel grid = new JPanel(new GridLayout(4, 3, 10, 10));
         grid.setBackground(Color.WHITE);
@@ -40,6 +42,7 @@ public class CardsView extends JPanel {
         return grid;
     }
 
+    // creates all the cards and makes it into buttons for people to click on
     private JButton createCardButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 24));

@@ -10,6 +10,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 public class ResultsDialog extends JDialog {
     public ResultsDialog(Map<String, Integer> counts, double total) {
+        // formatting for the results dialog
         setTitle("Voting Results");
         setModalityType(ModalityType.APPLICATION_MODAL);
         setSize(400, 300);
@@ -25,7 +26,7 @@ public class ResultsDialog extends JDialog {
         resultsArea.setBackground(content.getBackground());
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Pubs Voting Results:\n\n");
+        sb.append("Voting Results:\n\n");
         counts.forEach((card, count) ->
                 sb.append(String.format("%3s : %d votes\n", card, count)));
         sb.append("\nTotal Points: ").append(String.format("%.1f", total));
@@ -33,6 +34,7 @@ public class ResultsDialog extends JDialog {
         resultsArea.setText(sb.toString());
         content.add(new JScrollPane(resultsArea), BorderLayout.CENTER);
 
+        // showing the pie chart of the voting results
         DefaultPieDataset dataset = new DefaultPieDataset();
         counts.forEach((label, score) -> {
             dataset.setValue(label, score);

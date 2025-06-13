@@ -21,13 +21,14 @@ public class VotingController implements PropertyChangeListener {
         this.isModerator = isModerator;
         this.view = new VotingView(this, isModerator);
         repo.addPropertyChangeListener(this);
-        refreshParticipants(); // Initial load
+        refreshParticipants();
     }
 
     public VotingView getView() {
         return view;
     }
 
+    // to ensure they select the story first and have all the buttons show up when voting is started
     public void handleStartVoting() {
         if (repo.getSelectedStory() == null) {
             JOptionPane.showMessageDialog(view, "Select a story first!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -47,6 +48,7 @@ public class VotingController implements PropertyChangeListener {
         checkAndShowResults();
     }
 
+    // shows the results of the vote
     private void checkAndShowResults() {
         if (repo.getFinishedVoting().size() == repo.getParticipants().size()) {
             new ResultsDialog(repo.getVotesWithNames(), repo.calculateVoteSum()).setVisible(true);
@@ -56,7 +58,7 @@ public class VotingController implements PropertyChangeListener {
             view.setStartButtonVisible(true);
             stopTimer();
 
-            // Check AFTER the story has been removed
+            // check after the story has been removed
             if (repo.getStories().isEmpty()) {
                 new ResultsDialog(repo.getPlayerScores(), 0).setTitle("Final Score Summary");
                 new ResultsDialog(repo.getPlayerScores(), 0).setVisible(true);
@@ -73,7 +75,7 @@ public class VotingController implements PropertyChangeListener {
     }
 
     private void startTimer() {
-        stopTimer(); // Ensure no multiple timers are running
+        stopTimer(); // ensure no multiple timers are running
         timer = new Timer(1000, e -> {
             seconds++;
             view.updateTimer(String.format("%02d:%02d", seconds / 60, seconds % 60));
@@ -97,12 +99,11 @@ public class VotingController implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
-            case "participants":
-            case "selectedStory": // Also refresh when a new story is selected to clear checks
+            case "selectedStory":
                 refreshParticipants();
                 break;
             case "finishedVoting":
-                refreshParticipants(); // Update the checkmarks
+                refreshParticipants();
                 checkAndShowResults();
                 break;
             case "votingStarted":

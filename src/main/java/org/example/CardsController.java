@@ -39,6 +39,7 @@ public class CardsController implements PropertyChangeListener {
         votingController.showFinishVotingButton();
     }
 
+    // updates card colors
     private void updateCardColors() {
         Map<String, Color> colorMap = new HashMap<>();
         for (String cardValue : cardView.getCardValues()) {
