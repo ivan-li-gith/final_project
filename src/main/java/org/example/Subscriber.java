@@ -1,6 +1,8 @@
 package org.example;
 
 import org.eclipse.paho.client.mqttv3.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -8,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Subscriber implements Runnable, PropertyChangeListener, MqttCallback {
+    private static final Logger logger = LoggerFactory.getLogger(Subscriber.class);
     private final static String BROKER = "tcp://broker.hivemq.com:1883";
-    private final static String TOPIC = "cal-poly/csc/309/new";
-    private final static String CLIENT_ID = "jgs-subscriber";
+    private final static String TOPIC = "cal-poly/csc/309/new2";
+    private final static String CLIENT_ID = "jgs-subscriber-" + java.util.UUID.randomUUID().toString();
 
     private MqttClient client;
     Repository repo = Repository.getInstance();
@@ -82,12 +85,15 @@ public class Subscriber implements Runnable, PropertyChangeListener, MqttCallbac
     public void messageArrived(String topic, MqttMessage mqttMessage) {
         String content = new String(mqttMessage.getPayload());
 
-        if (content.startsWith("participant:")) {
-            String name = content.substring("participant:".length()).trim();
-            if (!name.isEmpty()) {
-                repo.addParticipant(name);
-                System.out.println("Received participant: " + name);
+        if (content.startsWith("participants:")) {
+            String[] names = content.substring("participants:".length()).split(",");
+            for (String name : names) {
+                if (!name.isEmpty()) {
+                    repo.addParticipant(name);
+                }
             }
+
+            logger.info("Subscriber received full participant list");
         }
 
         if (content.startsWith("room:")) {
