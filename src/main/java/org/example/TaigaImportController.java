@@ -1,5 +1,15 @@
 package org.example;
 
+/**
+ * Controller for the Taiga import screen. This class handles the logic
+ * for logging into the Taiga API, fetching user stories from a specified
+ * project, and loading them into the central repository. After fetching the
+ * stories, it transitions the UI to the main dashboard view.
+ *
+ * @author Ivan Li
+ * @version 1.0
+ */
+
 public class TaigaImportController {
     private final UserSelection window;
     private final String name;

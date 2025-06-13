@@ -9,6 +9,18 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The network communication client for a Participant.
+ * This class is responsible for subscribing to state updates from the Moderator
+ * (via the Publisher) and for publishing this client's own actions, such as
+ * joining the room, casting a vote, and finishing a vote. It listens for
+ * messages on the MQTT topic to keep its local repository in sync with the
+ * main room state.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
+
 public class Subscriber implements Runnable, PropertyChangeListener, MqttCallback {
     private static final Logger logger = LoggerFactory.getLogger(Subscriber.class);
     private final static String BROKER = "tcp://broker.hivemq.com:1883";

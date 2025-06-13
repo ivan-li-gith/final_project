@@ -3,6 +3,16 @@ package org.example;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Controller for the story list view. This class manages the state of the
+ * active and completed story lists. It handles the Moderator's selection of a
+ * story to be voted on and updates the view in response to changes in the
+ * central repository.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
+
 public class StoryController implements PropertyChangeListener{
     private final StoryView storyView;
     private final Repository repo = Repository.getInstance();

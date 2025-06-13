@@ -3,6 +3,16 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The view component for the user login screen. This class is responsible for
+ * creating and displaying the UI elements that allow a user to enter their name
+ * and join the session. It consists of labels, a text field for the name, and
+ * an "Enter" button. User actions are forwarded to the LoginController.
+ *
+ * @author Ivan Li
+ * @version 1.0
+ */
+
 public class LoginView extends JPanel {
     public LoginView(LoginController loginController) {
         setLayout(new BorderLayout(15, 15));

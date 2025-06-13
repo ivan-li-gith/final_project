@@ -3,6 +3,16 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The view component for the room creation screen, used only by the Moderator.
+ * This class is responsible for creating and displaying the UI elements that
+ * allow the Moderator to enter a name for the room and select a voting deck mode.
+ * User actions are forwarded to the RoomController.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
+
 public class RoomView extends JPanel {
     public RoomView(RoomController roomController) {
         setLayout(new BorderLayout(15, 15));

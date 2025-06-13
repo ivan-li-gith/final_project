@@ -1,5 +1,15 @@
 package org.example;
 
+/**
+ * Controller for the room creation screen, used only by the Moderator.
+ * This class handles the logic for creating a new voting room by taking the
+ * room name and voting mode from the view, updating the central repository,
+ * and then transitioning the UI to the Taiga import screen.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
+
 public class RoomController {
     private final UserSelection window;
     private String name;

@@ -9,8 +9,17 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class TaigaStoryFetcher {
+/**
+ * The view component for the Taiga project import screen, used by the Moderator.
+ * This class creates and displays the user interface for entering Taiga credentials
+ * (username, password) and the project slug. User actions are forwarded to the
+ * TaigaImportController to handle the API login and story fetching process.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
 
+public class TaigaStoryFetcher {
     public static String loginAndGetToken(String username, String password) throws Exception {
         URL url = new URL("https://api.taiga.io/api/v1/auth");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

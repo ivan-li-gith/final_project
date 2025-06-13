@@ -1,9 +1,17 @@
 package org.example;
 
-import org.json.JSONArray;
-
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * The view component for the Taiga project import screen, used by the Moderator.
+ * This class creates and displays the user interface for entering Taiga credentials
+ * (username, password) and the project slug. User actions are forwarded to the
+ * TaigaImportController to handle the API login and story fetching process.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
 
 public class TaigaImportView extends JPanel {
     public TaigaImportView(TaigaImportController taigaImportController) {

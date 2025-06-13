@@ -7,6 +7,15 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Controller for the planning poker cards view. This class handles user interactions
+ * with the voting cards, updates the central repository with the user's vote,
+ * and manages the visual state of the cards (e.g., highlighting selected cards).
+ *
+ * @author Ivan Li
+ * @version 1.0
+ */
+
 public class CardsController implements PropertyChangeListener {
     private final CardsView cardView;
     private final VotingController votingController;

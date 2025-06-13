@@ -8,6 +8,16 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The view component for the planning poker cards. This class is responsible for
+ * creating and displaying the grid of clickable voting cards (e.g., "1", "2", "3", "?").
+ * It forwards user click events to its controller and updates the visual state of
+ * the cards based on commands from the controller.
+ *
+ * @author Ivan Li
+ * @version 1.0
+ */
+
 public class CardsView extends JPanel {
     private static final String[] CARD_VALUES = {"0", "½", "1", "2", "3", "5", "8", "10", "20", "40", "100", "?"};
     private final Map<String, JButton> cardButtons = new HashMap<>();

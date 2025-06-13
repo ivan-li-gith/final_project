@@ -1,5 +1,15 @@
 package org.example;
 
+/**
+ * Controller for the login screen. This class handles the logic for a user
+ * entering their name and joining the planning poker session. It adds the
+ * new participant to the central repository and then transitions the UI to the
+ * appropriate next screen based on whether the user is a Moderator or a Participant.
+ *
+ * @author Ivan Li
+ * @version 1.0
+ */
+
 public class LoginController {
     private final UserSelection window;
     private String name;

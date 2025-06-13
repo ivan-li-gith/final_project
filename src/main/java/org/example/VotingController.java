@@ -6,6 +6,17 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the voting panel which includes the participant list and voting controls.
+ * This class manages the voting process, including starting the vote, tracking the timer,
+ * handling the "Finish Voting" action from users, and determining when to display
+ * the final results. It listens for changes in the central repository to keep the
+ * UI in sync with the application state.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
+
 public class VotingController implements PropertyChangeListener {
     private final VotingView view;
     private final UserSelection window;

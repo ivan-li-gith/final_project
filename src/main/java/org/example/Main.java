@@ -2,6 +2,18 @@ package org.example;
 
 import javax.swing.*;
 
+/**
+ * The main entry point for the Planning Poker application.
+ * This class is responsible for initializing the application by first prompting
+ * the user to select their role (Moderator or Participant). Based on the user's
+ * choice, it launches the appropriate background thread for network communication
+ * (Publisher for Moderator, Subscriber for Participant) and then constructs the
+ * initial user interface on the Swing Event Dispatch Thread.
+ *
+ * @author Ivan Li
+ * @version 1.0
+ */
+
 public class Main extends JFrame {
     public static void main(String[] args) {
         // show an option to allow user to choose who they are

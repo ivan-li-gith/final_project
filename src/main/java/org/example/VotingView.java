@@ -4,6 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The view component for the voting panel. This class is responsible for
+ * creating and displaying the UI elements related to the voting process,
+ * including the timer, the list of participants, and the "Start Voting" and
+ * "Finish Voting" buttons. Its state is managed by the VotingController.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
+
 public class VotingView extends JPanel {
     private final VotingController controller;
     private final DefaultListModel<String> participantModel = new DefaultListModel<>();

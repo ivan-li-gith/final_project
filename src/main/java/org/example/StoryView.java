@@ -4,6 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The view component that displays the lists of active and completed stories.
+ * This class uses a JTabbedPane to separate stories that are pending a vote
+ * from those that have already been estimated. It allows the Moderator to select
+ * a story from the active list to begin a voting round.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
+
 public class StoryView extends JPanel{
     private final StoryController controller;
     private final DefaultListModel<String> activeStoryModel = new DefaultListModel<>();

@@ -3,6 +3,16 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The main application window (JFrame) that handles the initial user role selection.
+ * This class determines the initial view to be displayed based on whether the
+ * user is a Moderator or a Participant. For Participants, it also manages the
+ * "waiting for room" screen until a Moderator has created a session.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
+
 public class UserSelection extends JFrame {
     private final Repository repo = Repository.getInstance();
 

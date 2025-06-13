@@ -3,6 +3,16 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The main view for the planning poker application after a user has logged in.
+ * This class acts as a container that assembles the various UI components
+ * of the application, including the story lists, the voting cards, and the
+ * participant/voting panel, into a single dashboard layout.
+ *
+ * @author Ivan Li
+ * @version 1.0
+ */
+
 public class DashboardView extends JPanel {
     private final Repository repo = Repository.getInstance();
 

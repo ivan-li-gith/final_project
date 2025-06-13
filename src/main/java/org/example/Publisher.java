@@ -9,6 +9,18 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The network communication client for the Moderator.
+ * This class is responsible for publishing all state changes (like new stories,
+ * new participants, or a new selected story) to the MQTT broker. It acts as the
+ * single source of truth for the room's state. It also listens for messages
+ * from participants (e.g., when they join or cast a vote) to keep the central
+ * repository updated.
+ *
+ * @author Ivan Li
+ * @version 1.0
+ */
+
 public class Publisher implements Runnable, PropertyChangeListener, MqttCallback {
     private static final Logger logger = LoggerFactory.getLogger(Publisher.class);
     private final static String BROKER = "tcp://broker.hivemq.com:1883";

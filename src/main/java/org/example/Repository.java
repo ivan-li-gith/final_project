@@ -4,6 +4,16 @@ import java.beans.PropertyChangeSupport;
 import java.util.*;
 import org.json.JSONArray;
 
+/**
+ * A Singleton class that acts as the central data repository for the application.
+ * It holds all shared state, such as participants, stories, and voting information.
+ * This class extends PropertyChangeSupport to allow other parts of the application
+ * (like controllers and views) to listen for and react to changes in the data.
+ *
+ * @author Ivan Li
+ * @version 1.0
+ */
+
 public class Repository extends PropertyChangeSupport {
     public static Repository instance;
     private final ArrayList<Participant> participants = new ArrayList<>();

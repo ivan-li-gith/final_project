@@ -8,6 +8,15 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
+/**
+ * A dialog window that displays the results of a planning poker voting round.
+ * This view presents the vote distribution both as a text summary and as a
+ * pie chart, and it shows the final calculated point value for the story.
+ *
+ * @author Aadi Dhanda
+ * @version 1.0
+ */
+
 public class ResultsDialog extends JDialog {
     public ResultsDialog(Map<String, Integer> counts, double total) {
         // formatting for the results dialog
